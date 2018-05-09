@@ -23,7 +23,7 @@
 
 async function ajax(details) {
   // eslint-disable-next-line camelcase
-  const xhr = GM_xmlhttpRequest || (GM ? GM.xmlHttpRequest : null);
+  const xhr = window['GM_xmlhttpRequest'] || (window['GM'] ? GM.xmlHttpRequest : null);
   if (!xhr) {
     return Promise.reject();
   }
