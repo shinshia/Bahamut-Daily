@@ -16,7 +16,7 @@
 // ==/UserScript==
 
 (async () => {
-  if (document.cookie.includes('BAHAID') && !(await checkSignedIn())) {
+  if (!(await checkSignedIn())) {
     doSignIn();
   }
 })();
@@ -50,7 +50,10 @@ async function checkSignedIn() {
     },
   }).catch(console.error);
   console.info('test', JSON.parse(response.responseText));
-  return !!JSON.parse(response.responseText).signin;
+  // signin: -1, 未登入
+  // signin:  0, 未簽到
+  // signin:  1, 已簽到
+  return JSON.parse(response.responseText).signin > 0;
 }
 
 async function getToken() {
